@@ -1,0 +1,65 @@
+148. Sort List
+Given the head of a linked list, return the list after sorting it in ascending order.
+time complexity -> O(n logn)
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* middle(ListNode* head){
+        ListNode* fast=head->next;
+        ListNode* slow=head;
+
+        while(fast && fast->next){
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+
+        return slow;
+    }
+    ListNode* merge(ListNode* head1, ListNode* head2){
+        ListNode* temp = new ListNode(0);
+        ListNode* current = temp;          
+
+        while (head1 && head2) {
+            if (head1->val <= head2->val) {
+                current->next = head1;
+                head1 = head1->next;
+            }
+            else {
+                current->next = head2;
+                head2 = head2->next;
+            }
+            current = current->next;
+        }
+
+    if (head1) current->next = head1;
+    else current->next = head2;
+
+    return temp->next;
+}
+    ListNode* sortList(ListNode* head) {
+        if(head == nullptr || head->next == nullptr){
+            return head;
+        }
+
+        ListNode* mid = middle(head);
+        ListNode* right = mid->next;
+        mid->next=nullptr;
+
+        ListNode* left = sortList(head);
+        right = sortList(right);
+
+        return merge(left,right);
+    }
+
+};
