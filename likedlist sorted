@@ -2,6 +2,8 @@
 Given the head of a linked list, return the list after sorting it in ascending order.
 time complexity -> O(n logn)
 
+apprroach 1 -> using merge sort
+approach 2-> push element into vector and than sort and sorted element push on the linked list
 
 /**
  * Definition for singly-linked list.
