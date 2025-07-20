@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int l = 0;
+        int h = matrix.size() - 1;
+
+        while (l <= h) {
+            int mid = l + (h - l) / 2;
+
+            if (target >= matrix[mid][0] && target <= matrix[mid][matrix[0].size() - 1]) {
+                int innerl = 0;
+                int innerh = matrix[0].size() - 1;
+
+                while (innerl <= innerh) {
+                    int mid1 = innerl + (innerh - innerl) / 2;
+
+                    if (matrix[mid][mid1] == target) {
+                        return true;
+                    } else if (matrix[mid][mid1] < target) {
+                        innerl = mid1 + 1;
+                    } else {
+                        innerh = mid1 - 1;
+                    }
+                }
+
+                return false;
+            }
+
+            if (matrix[mid][0] > target) {
+                h = mid - 1;
+            } else {
+                l = mid + 1;
+            }
+        }
+
+        return false;
+    }
+};
