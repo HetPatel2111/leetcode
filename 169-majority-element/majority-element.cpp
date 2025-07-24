@@ -1,16 +1,22 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        unordered_map<int,int> m;
+        int count=0;
+        int ele;
 
-        for(auto it : nums){
-            m[it] = m[it]+1;
+        for(int i=0 ; i<nums.size() ; i++){
+            if(count==0){
+                count=1;
+                ele=nums[i];
+            }
+            else if(ele==nums[i]){
+                count++;
+            }
+            else{
+                count--;
+            }
         }
 
-        for(auto it : m){
-            if(it.second > nums.size()/2) return it.first;
-        }
-
-        return 0;
+        return ele;
     }
 };
