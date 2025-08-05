@@ -1,24 +1,22 @@
 class Solution {
 public:
+    static bool cmp(pair<char,int>&a , pair<char,int>&b){
+        return a.second > b.second;
+    }
+
     string frequencySort(string s) {
         unordered_map<char,int> u;
 
-        for(auto &it : s) u[it]++;
+        for(auto it : s) u[it]++;
 
-        priority_queue<pair<int,char>> maxHeap;
+        vector<pair<char,int>> v(u.begin(),u.end());
 
-        for(auto& [ch,f] : u){
-            maxHeap.push({f,ch});
-        }
+        sort(v.begin(),v.end(),cmp);
 
         string result;
 
-        while(!maxHeap.empty()){
-            auto [f,ch] = maxHeap.top();
-            maxHeap.pop();
-            result += string(f,ch);
-            // string(count,char) mean count times char add
-            // string(5,'a') -> aaaaa
+        for(auto it : v){
+            result += string(it.second,it.first);
         }
 
         return result;
