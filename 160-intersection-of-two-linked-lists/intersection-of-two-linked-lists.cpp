@@ -9,42 +9,32 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        int len1=0;
-        int len2=0;
+        if (!headA || !headB) return nullptr;
 
-        ListNode* temp1 = headA;
-        ListNode*temp2 = headB;
+        ListNode* a = headA;
+        ListNode* b = headB;
 
-        while(temp1 != nullptr){
-            len1++;
-            temp1 = temp1->next;
+        while (a != b) {
+            if (a == nullptr && b == nullptr) {
+                // Both are null => no intersection
+                return nullptr;
+            }
+
+            // Move pointer a
+            if (a == nullptr) {
+                a = headB;
+            } else {
+                a = a->next;
+            }
+
+            // Move pointer b
+            if (b == nullptr) {
+                b = headA;
+            } else {
+                b = b->next;
+            }
         }
 
-        while(temp2 != nullptr){
-            len2++;
-            temp2 = temp2->next;
-        }
-
-        bool BigFirstList = true;
-        if(len2 > len1) BigFirstList=false; 
-        int maxLen = max(len1,len2);
-        int minLen = min(len1,len2);
-        int shift = maxLen - minLen;
-        temp1=headA;
-        temp2=headB;
-        if(BigFirstList){
-            while(shift--) temp1 = temp1->next;
-        }
-        else {
-            while(shift--) temp2 = temp2->next;
-        }
-
-        while(temp1 != nullptr){
-            if(temp1 == temp2) return temp1;
-            temp1 = temp1->next;
-            temp2 = temp2->next;
-        } 
-
-        return nullptr;   
+        return a;  // Intersection node or nullptr
     }
 };
