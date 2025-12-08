@@ -1,7 +1,13 @@
 class Solution {
 public:
-    void combination(vector<int>& nums , int idx , vector<vector<int>>&ans){
-        if(idx==nums.size()){
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> ans;
+        combination(nums,0,ans);
+        return ans;
+    }
+
+    void combination(vector<int>&nums , int idx , vector<vector<int>>&ans){
+        if(idx == nums.size()){
             ans.push_back(nums);
             return;
         }
@@ -9,13 +15,7 @@ public:
         for(int i=idx ; i<nums.size() ; i++){
             swap(nums[i],nums[idx]);
             combination(nums,idx+1,ans);
-            swap(nums[i],nums[idx]); // backtrack
+            swap(nums[idx],nums[i]);
         }
-    }
-
-    vector<vector<int>> permute(vector<int>& nums) {
-        vector<vector<int>> ans;
-        combination(nums,0,ans);
-        return ans;
     }
 };
