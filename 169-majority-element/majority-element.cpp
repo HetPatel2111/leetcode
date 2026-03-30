@@ -4,12 +4,12 @@ public:
         int count=0;
         int ele;
 
-        for(int i=0 ; i<nums.size() ; i++){
+        for(auto &it : nums){
             if(count==0){
-                count=1;
-                ele=nums[i];
+                count++;
+                ele=it;
             }
-            else if(ele==nums[i]){
+            else if(it == ele){
                 count++;
             }
             else{
