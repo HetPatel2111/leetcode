@@ -1,38 +1,43 @@
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
-        unordered_set<int> row0;
-        unordered_set<int> col0;
+        int c1=0;
+        int m=matrix.size();
+        int n=matrix[0].size();
 
-        int n = matrix.size();
-        int m = matrix[0].size();
-
-        for(int i=0 ; i<n ; i++){
-            for(int j=0 ; j<m ; j++){
-                if(matrix[i][j]==0){
-                    row0.insert(i);
-                    col0.insert(j);
-                }
-            }
-        }
-
-        bool ifExistZero;
-        for(int i=0 ; i<n ; i++){
-            if(row0.find(i) != row0.end()){
-                ifExistZero = true;
-            }
-            else{
-                ifExistZero = false;
-            }
-
-            for(int j=0 ; j<m ; j++){
-                if(ifExistZero){
-                    matrix[i][j] = 0;
+        for(int i=0 ; i<m ; i++){
+            for(int j=0 ; j<n ; j++){
+                if(i==0 && matrix[i][j]==0){
+                    c1=1;
                 }
                 else{
-                    if(col0.find(j) != col0.end()) matrix[i][j]=0;
+                    if(matrix[i][j]==0){
+                        matrix[i][0]=0;
+                        matrix[0][j]=0;
+                    }
                 }
             }
         }
+
+        for(int i=1 ; i<m ; i++){
+            for(int j=1 ; j<n ; j++){
+                if(matrix[i][0]==0 || matrix[0][j]==0){
+                    matrix[i][j]=0;
+                }
+            }
+        }
+
+        if(matrix[0][0]==0){
+            for(int i=0 ; i<m ; i++){
+                matrix[i][0]=0;
+            }
+        }
+
+        if(c1==1){
+            for(int i=0 ; i<n ; i++){
+                matrix[0][i]=0;
+            }
+        }
+
     }
 };
