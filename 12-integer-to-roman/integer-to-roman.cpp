@@ -1,13 +1,20 @@
 class Solution {
 public:
     string intToRoman(int num) {
-        string ones[] = {"","I","II","III","IV","V","VI","VII","VIII","IX"};
+        vector<int> v={1000,900,500,400,100,90,50,40,10,9,5,4,1};
+        vector<string> ch = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
 
-        string tens[]= {"","X","XX","XXX","XL","L","LX","LXX","LXXX","XC"};
+        string ans;
 
-        string hurns[]={"","C","CC","CCC","CD","D","DC","DCC","DCCC","CM"};
-        string thous[]={"","M","MM","MMM"};
+        for(int i=0 ; i<v.size() ; i++){
+            while(num>=v[i]){
+                num-=v[i];
+                ans+=ch[i];
+            }
+        }
 
-        return (thous[num/1000] + hurns[(num%1000)/100] + tens[(num%100)/10] + ones[num%10]);
+        return ans;
+
+
     }
 };
