@@ -1,23 +1,29 @@
 class Solution {
 public:
     int beautySum(string s) {
-        int count=0;
-        for(int i=0 ; i<s.size() ; i++){
-            vector<int> v(26,0);
-            for(int j=i ; j<s.size() ; j++){
+        int count = 0;
+        int n = s.size();
+
+        for (int i = 0; i < n; i++) {
+            vector<int> v(26, -1);
+            
+            for (int j = i; j < n; j++) {
                 char ch = s[j];
-                v[ch-'a']++;
-
-                int maxfreq = 0, minfreq = INT_MAX;
-                for (int k = 0; k < 26; k++) {
-                    if (v[k] > 0) {
-                        maxfreq = max(maxfreq, v[k]);
-                        minfreq = min(minfreq, v[k]);
-                    }
+                v[ch - 'a'] += 1;
+                int maxf = 0;
+                int minf = INT_MAX;
+                for (auto& it : v) {
+                    if (it == -1)
+                        continue;
+                    if (it > maxf)
+                        maxf = it;
+                    if (it < minf)
+                        minf = it;
                 }
-
-                count += maxfreq - minfreq;
+                count += maxf - minf;
             }
+
+            
         }
 
         return count;
