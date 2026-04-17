@@ -5,15 +5,21 @@ public:
         int n=s.size();
 
         for(int i=0 ; i<n ; i++){
-            string temp;
-            for(int j=i ; j<n ; j++){
-                temp+=s[j];
-                string temp1 = temp;
-                reverse(temp1.begin(),temp1.end());
-                if(temp1==temp) count++;
-            }
+            count+= expand(s,i,i);
+            count+= expand(s,i,i+1);
         }
 
+        return count;
+    }
+
+    int expand(string s , int left , int right){
+        int count=0;
+
+        while(left>=0 && right<s.size() && s[left]==s[right]){
+            count++;
+            left--;
+            right++;
+        }
         return count;
     }
 };
