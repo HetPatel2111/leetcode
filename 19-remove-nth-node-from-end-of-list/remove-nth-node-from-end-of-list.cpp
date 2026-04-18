@@ -27,9 +27,9 @@ public:
         int newLen = size-n-1;
 
         temp=head;
-        while(newLen>0){
+        while(newLen--){
             temp=temp->next;
-            newLen--;
+            
         }
 
         temp->next = temp->next->next;
