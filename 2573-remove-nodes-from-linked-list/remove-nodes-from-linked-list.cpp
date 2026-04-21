@@ -1,33 +1,45 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
-    ListNode* rev(ListNode* head) {
-        ListNode* curr = head;
-        ListNode* prev = nullptr;
-        while (curr != nullptr) {
-            ListNode* ahed = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = ahed;
-        }
-        return prev;
-    }
-
     ListNode* removeNodes(ListNode* head) {
-        ListNode* head1 = rev(head);
-        int maxVal = head1->val;
-        ListNode* dummy = new ListNode(0);
-        dummy->next = head1;
-        ListNode* temp = dummy;
+        ListNode*t1 = rev(head);
+        ListNode*dummy = new ListNode(0);
+        int maxVal=0;
+        ListNode*tp=dummy;
 
-        while (temp->next != nullptr) {
-            if (temp->next->val < maxVal) {
-                temp->next = temp->next->next;
-            } else {
-                maxVal = temp->next->val;
-                temp = temp->next;
+        while(t1!=nullptr){
+            if(maxVal <= t1->val){
+                maxVal = t1->val;
+                tp->next=t1;
+                tp=tp->next;
             }
+            t1=t1->next;
         }
+        tp->next=nullptr;
 
         return rev(dummy->next);
+
+    }
+
+    ListNode*rev(ListNode*head){
+        ListNode*prev=nullptr;
+
+        while(head!=nullptr){
+            ListNode*ahed = head->next;
+            head->next=prev;
+            prev=head;
+            head=ahed;
+        }
+
+        return prev;
     }
 };
