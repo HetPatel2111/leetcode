@@ -1,38 +1,66 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
+    ListNode*rev(ListNode*head){
+        ListNode*prev=nullptr;
+
+        while(head!=nullptr){
+            ListNode*ahed = head->next;
+            head->next=prev;
+            prev=head;
+            head=ahed;
+        }
+        return prev;
+    }
+
     void reorderList(ListNode* head) {
-        if (!head || !head->next) return;
+        if(head->next==nullptr) return;
 
-        ListNode *slow = head, *fast = head;
-        while (fast->next && fast->next->next) {
-            slow = slow->next;
-            fast = fast->next->next;
+        ListNode*fast=head->next;
+        ListNode*slow=head;
+
+        while(fast!=nullptr && fast->next!=nullptr){
+            fast=fast->next->next;
+            slow=slow->next;
         }
 
-        ListNode* prev = nullptr;
-        ListNode* curr = slow->next;
-        slow->next = nullptr;
+         ListNode*temp=slow->next;
+         slow->next=nullptr;
+         slow=temp;
 
-        while (curr) {
-            ListNode* nxt = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = nxt;
+        slow = rev(slow);
+
+        // ListNode*dummy = new ListNode(0);
+        // ListNode*tp=dummy;
+        fast=head->next;
+        ListNode*ans = head;
+        while(fast!=nullptr && slow!=nullptr){
+            ListNode* fnext = fast->next;
+            ListNode* snext = slow->next;   
+
+            ans->next=slow;
+            ans=ans->next;
+            ans->next=fast;
+            ans=ans->next;
+
+            fast = fnext;
+            slow = snext;
+            // fast=fast->next;
+            // slow=slow->next;
+            
         }
 
-        ListNode* head2 = prev;
-        ListNode* p1 = head;
-        ListNode* p2 = head2;
+        if(slow!=nullptr) ans->next=slow;
+        else ans->next=nullptr;
 
-        while (p2) {
-            ListNode* t1 = p1->next;
-            ListNode* t2 = p2->next;
-
-            p1->next = p2;
-            p2->next = t1;
-
-            p1 = t1;
-            p2 = t2;
-        }
     }
 };
