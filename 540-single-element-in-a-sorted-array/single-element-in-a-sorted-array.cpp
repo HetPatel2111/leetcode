@@ -8,15 +8,11 @@ public:
         while(l<h){
             int mid = l + (h-l)/2;
 
-            if(mid%2==1) mid--;
+            if(mid%2) mid--;
             int next = (mid+1)%n;
 
-            if(nums[mid]==nums[next]){
-                l=l+2;
-            }
-            else{
-                h=mid-1;
-            }
+            if(nums[mid]==nums[next]) l=l+2;
+            else h=mid-1;
         }
 
         return nums[l];
