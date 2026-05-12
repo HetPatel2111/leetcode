@@ -1,7 +1,7 @@
 class Solution {
 public:
     int maxSubarraySumCircular(vector<int>& nums) {
-        bool allNegative = true;
+        bool allNegative=true;
 
         for(auto &it : nums){
             if(it>0){
@@ -11,36 +11,34 @@ public:
         }
 
         if(allNegative){
-            int max_ele = nums[0];
-
-            for(auto &it : nums){
-                if(it>max_ele) max_ele=it;
+            int maxEle=nums[0];
+            for(auto &it: nums){
+                if(it>maxEle) maxEle=it;
             }
-            return max_ele;
+            return maxEle;
         }
 
+        int maxi=INT_MIN;
         int sum=0;
-        int maxSum=INT_MIN;
 
         for(auto &it : nums){
-            sum += it;
-            if(sum > maxSum) maxSum=sum;
+            sum+=it;
+            maxi = max(maxi,sum);
             if(sum<0) sum=0;
         }
 
         int total=0;
-        for(auto &it : nums) total+=it;
+        for(auto &it: nums) total+=it;
 
-        int minSum = INT_MAX;
+        int mini=INT_MAX;
         sum=0;
 
         for(auto &it : nums){
-            sum += it;
-            if(sum < minSum) minSum = sum;
+            sum+=it;
+            mini = min(mini,sum);
             if(sum>0) sum=0;
         }
 
-        return max(maxSum , total-minSum);
-        
+        return max(maxi,total-mini);
     }
 };
