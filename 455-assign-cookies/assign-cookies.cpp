@@ -4,18 +4,19 @@ public:
         sort(g.begin(),g.end());
         sort(s.begin(),s.end());
 
-        int ans=0;
+        int count=0;
         int l=0;
         int r=0;
 
         while(l<g.size() && r<s.size()){
             if(g[l]<=s[r]){
-                ans++;
+                count++;
+                r++;
                 l++;
             }
-                r++;
+            else r++;
         }
 
-        return ans;
+        return count;
     }
 };
