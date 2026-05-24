@@ -10,33 +10,45 @@
  */
 class Solution {
 public:
+    void rev(vector<int>&ans , int k , int left , int right){
+        int n=ans.size();
+
+        if(left+k >n){
+            return;
+        }
+
+        while(left<right){
+            swap(ans[left],ans[right]);
+            left++;
+            right--;
+        }
+    }
+
     ListNode* reverseKGroup(ListNode* head, int k) {
-        ListNode* node = head;
-        int count = 0;
+        vector<int> ans;
+        ListNode*temp = head;
 
-        while (node && count < k) {
-            node = node->next;
-            count++;
+        while(temp!=nullptr){
+            ans.push_back(temp->val);
+            temp=temp->next;
         }
 
-        if (count < k) return head;
+        int n=ans.size();
 
-        ListNode* prev = nullptr;
-        ListNode* curr = head;
-        ListNode* next = nullptr;
-        count = 0;
-        while (curr && count < k) {
-            next = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = next;
-            count++;
+        for(int i=0 ; i<n ; i+=k){
+            rev(ans,k,i,i+k-1);
         }
 
-        if (next) {
-            head->next = reverseKGroup(next, k);
+        temp=head;
+        int i=0;
+
+        while(temp!=nullptr){
+            temp->val=ans[i];
+            i++;
+            temp=temp->next;
         }
 
-        return prev;
+        return head;
+
     }
 };
