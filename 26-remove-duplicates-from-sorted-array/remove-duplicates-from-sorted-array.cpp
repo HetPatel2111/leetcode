@@ -5,14 +5,11 @@ public:
         int i=0;
         int j=1;
 
-        while(j<n){
-            if(nums[i]==nums[j]){
-                j++;
-                continue;
+        for(j ; j<n ; j++){
+            if(nums[i]!=nums[j]){
+                i++;
+                swap(nums[i],nums[j]);
             }
-            i++;
-            swap(nums[i],nums[j]);
-            j++;
         }
 
         return i+1;
