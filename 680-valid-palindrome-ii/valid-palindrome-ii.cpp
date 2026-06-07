@@ -1,23 +1,26 @@
 class Solution {
 public:
-    bool palindromic(string&s , int left , int right){
-        while(left<right){
-            if(s[left]!=s[right]) return false;
-            left++;
-            right--;
+    bool validPalindrome(string s) {
+        int n=s.size();
+        int l=0;
+        int h=n-1;
+
+        while(l<h){
+            if(s[l]!=s[h]){
+                return ( help(s,l,h-1) || help(s,l+1,h) );
+            }
+            l++;
+            h--;
         }
+
         return true;
     }
-    bool validPalindrome(string s) {
-        int left=0;
-        int right=s.size()-1;
 
-        while(left<right){
-            if(s[left]!=s[right]){
-                return (palindromic(s,left+1,right) || palindromic(s,left,right-1));
-            }
-            left++;
-            right--;
+    bool help(string&s , int l , int h){
+        while(l<h){
+            if(s[l]!=s[h]) return false;
+            l++;
+            h--;
         }
         return true;
     }
