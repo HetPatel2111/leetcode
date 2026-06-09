@@ -1,49 +1,51 @@
 class Solution {
 public:
     vector<int> searchRange(vector<int>& nums, int target) {
-        if(nums.size()==0) return {-1,-1};
+        int l = lo(nums,target);
+        int h = up(nums,target);
 
-        int lb = lowerBound(nums,target);
-        int ub = upperBound(nums,target);
+        if(l==nums.size() || nums[l]!=target){
+            return {-1,-1};
+        }
 
-        if(lb>=nums.size() || nums[lb]!=target) return {-1,-1};
-        return {lb,ub-1};
-
+        return {l,h-1};
     }
 
-    int upperBound(vector<int>&nums , int target){
+    int lo(vector<int>& nums, int target){
+        int n=nums.size();
+        int ans=n;
         int l=0;
-        int h=nums.size()-1;
-        int ans = nums.size();
+        int h=n-1;
+
         while(l<=h){
             int mid = l + (h-l)/2;
-            
-            if(nums[mid] > target){
-                ans = mid;
-                h = mid-1;
+
+            if(nums[mid]>=target){
+                ans=mid;
+                h=mid-1;
             }
-            else{
-                l=mid+1;
-            }
+            else l=mid+1;
         }
+
         return ans;
     }
 
-    int lowerBound(vector<int>&nums , int target){
+    int up(vector<int>& nums, int target){
+        int n=nums.size();
+        int ans=n;
         int l=0;
-        int h=nums.size()-1;
-        int ans = nums.size();
+        int h=n-1;
+
         while(l<=h){
             int mid = l + (h-l)/2;
-            
-            if(nums[mid] >= target){
-                ans = mid;
-                h = mid-1;
+
+            if(nums[mid]>target){
+                ans=mid;
+                h=mid-1;
             }
-            else{
-                l=mid+1;
-            }
+            else l=mid+1;
         }
+
         return ans;
     }
 };
