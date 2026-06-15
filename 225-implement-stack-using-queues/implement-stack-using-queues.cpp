@@ -6,12 +6,12 @@ public:
     }
     
     void push(int x) {
-        q1.push(x);
         int n=q1.size();
-
-        for(int i=0 ; i<n-1 ; i++){
-            q1.push(q1.front());
+        q1.push(x);
+        while(n--){
+            int ele = q1.front();
             q1.pop();
+            q1.push(ele);
         }
     }
     
@@ -26,8 +26,8 @@ public:
     }
     
     bool empty() {
-        if(q1.empty()) return true;
-        return false;
+        if(q1.size()) return false;
+        return true;
     }
 };
 
