@@ -9,9 +9,8 @@ public:
             int mid = l + (h-l)/2;
 
             if(mid%2) mid--;
-            int next = (mid+1)%n;
 
-            if(nums[mid]==nums[next]) l=l+2;
+            if(nums[mid]==nums[mid+1]) l=l+2;
             else h=mid-1;
         }
 
